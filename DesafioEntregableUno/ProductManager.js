@@ -11,15 +11,15 @@ export class ProductManager {
     //METODOS
     //Agrega productos al array products de la clase ProductManager
     addProduct (product) {
-        let {title, description, price, thumbnail, id, stock} = product;
+        let {title, description, price, thumbnail, code, id, stock} = product;
         
         //verificacion de datos del producto
-       if(title && description && price && thumbnail && stock) {
+       if(title && description && price && thumbnail && code && stock) {
                 const productExistente = this.getProductById (id);
                 //Si no se encontro una id igual se lo agrega y se genera un id nuevo
                 if(!productExistente) {
                     id = this.getLastIdAutoIncremental();
-                    const nuevoProducto = new Product (title, description, price, thumbnail, id, stock)
+                    const nuevoProducto = new Product (title, description, price, thumbnail, code, id, stock)
                     this.products.push(nuevoProducto);
                     this.setLastIdAutoIncremental (id);
                     console.log(`[OK] -> El producto [${title}] agregado correctamente con su id [${id}]`)
@@ -59,3 +59,36 @@ export class ProductManager {
         return this.idAutoIncremental + 1;
     }
 }
+
+
+/*
+class ProductManager {
+    constructor() {
+        this.products = []
+    }
+
+    addProduct(product) {
+        const prod = this.products.find(prod => prod.code === product.code)
+
+        if (prod) {
+            console.log("Producto ya encontrado")
+        } else {
+            this.products.push(product)
+        }
+    }
+
+    getProducts() {
+        console.log(this.products)
+    }
+
+    getProductById(id) {
+        const prod = this.products.find(prod => prod.id === id)
+
+        if (prod) {
+            console.log(prod)
+        } else {
+            console.log("Producto no encontrado")
+        }
+    }
+}
+*/

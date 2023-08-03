@@ -17,6 +17,7 @@ const productoIndividual =
     description: "este es el producto de prueba", 
     price: 99999, 
     thumbnail: "esta es su imagen", 
+    code: "AA4542A",
     id: 1, 
     stock: 1,
 }
