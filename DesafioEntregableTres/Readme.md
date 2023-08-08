@@ -23,6 +23,10 @@ Dentro de la carpeta **src** se encuentran los siguientes archivos:
 | Test/_Test.js_ | Contiene funciones armadas en los desafios anteriores para probarlas. |
 
 #### FUNCIONAMIENTO
+Instalar las dependencias necesarias para su correcto funcionamiento ejecutando el comando.
+```sh
+npm install
+```
 Ejecutar por consola el comando. 
 ```sh
 npm run dev
