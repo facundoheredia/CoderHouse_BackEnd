@@ -8,7 +8,7 @@ export const PORT = 4000;
 export const APP = express();
 
 //Hacer que express use JSON
-export const SERVIDORLECTURAJSON = express.json();
+export const ServidorLecturaJson = express.json();
 
 
 export function servidorMenuPrincipal () {

@@ -1,13 +1,13 @@
 //IMPORTACIONES
 import { iniciarTesteo } from "../Test/Test.js";
 import { ProductManager } from "./Clases/ProductManager.js";
-import { APP,PORT,SERVIDORLECTURAJSON,servidorMenuPrincipal } from "./ServerConfig.js";
+import { APP,PORT,ServidorLecturaJson,servidorMenuPrincipal } from "./ServerConfig.js";
 
 //CONSTANTES
-const PATHARCHIVOSERVIDOR = "./DesafioEntregableTres/src/ListaDeProductosEnServidor.json";
-const productManagerServer = new ProductManager(PATHARCHIVOSERVIDOR);
+const pathArchivoServidor = "./DesafioEntregableTres/src/ListaDeProductosEnServidor.json";
+const productManagerServer = new ProductManager(pathArchivoServidor);
 
-APP.use(SERVIDORLECTURAJSON);
+APP.use(ServidorLecturaJson);
 
 APP.get("/", (req,res) => {
     res.send(servidorMenuPrincipal())
@@ -34,6 +34,7 @@ APP.get("/products", async (req,res) => {
 
     if(!limit) {
         res.send(arrayDeProductos);
+        //res.sendFile(path.join(__dirname+'/Productos.html'))
     } else {
         res.send(arrayDeProductos.slice(0,limit));
     }
@@ -49,3 +50,17 @@ APP.get("/products/:pid", async (req,res) => {
         res.status(400).send("Producto no encontrado");
     }
 });
+
+
+/*
+APP.get("/products", async (req,res) => {
+    let limit = parseInt(req.query.limit);
+    const arrayDeProductos = await productManagerServer.getProducts();
+
+    if(!limit) {
+        res.send(arrayDeProductos);
+    } else {
+        res.send(arrayDeProductos.slice(0,limit));
+    }
+});
+*/

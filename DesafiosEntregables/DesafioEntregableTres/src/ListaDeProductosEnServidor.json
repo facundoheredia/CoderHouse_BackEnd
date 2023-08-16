@@ -6,7 +6,9 @@
     "thumbnail": "esta es su imagen",
     "code": "GF4e",
     "id": 1,
-    "stock": 1
+    "stock": 1,
+    "category": "categoria1",
+    "status": true
   },
   {
     "title": "producto2",
@@ -15,7 +17,9 @@
     "thumbnail": "esta es su imagen",
     "code": "A343",
     "id": 2,
-    "stock": 2
+    "stock": 2,
+    "category": "categoria2",
+    "status": true
   },
   {
     "title": "producto3",
@@ -24,7 +28,9 @@
     "thumbnail": "esta es su imagen",
     "code": "Y56",
     "id": 3,
-    "stock": 3
+    "stock": 3,
+    "category": "categoria3",
+    "status": true
   },
   {
     "title": "producto4",
@@ -33,7 +39,9 @@
     "thumbnail": "esta es su imagen",
     "code": "rtrsaA",
     "id": 4,
-    "stock": 4
+    "stock": 4,
+    "category": "categoria1",
+    "status": true
   },
   {
     "title": "producto5",
@@ -42,7 +50,9 @@
     "thumbnail": "esta es su imagen",
     "code": "G5533",
     "id": 5,
-    "stock": 5
+    "stock": 5,
+    "category": "categoria2",
+    "status": true
   },
   {
     "title": "producto6",
@@ -51,7 +61,9 @@
     "thumbnail": "esta es su imagen",
     "code": "565dfd",
     "id": 6,
-    "stock": 6
+    "stock": 6,
+    "category": "categoria3",
+    "status": true
   },
   {
     "title": "producto7",
@@ -60,7 +72,9 @@
     "thumbnail": "esta es su imagen",
     "code": "SdiD",
     "id": 7,
-    "stock": 7
+    "stock": 7,
+    "category": "categoria1",
+    "status": true
   },
   {
     "title": "producto8",
@@ -69,7 +83,9 @@
     "thumbnail": "esta es su imagen",
     "code": "zxce3",
     "id": 8,
-    "stock": 8
+    "stock": 8,
+    "category": "categoria2",
+    "status": true
   },
   {
     "title": "producto9",
@@ -78,7 +94,9 @@
     "thumbnail": "esta es su imagen",
     "code": "67jgh",
     "id": 9,
-    "stock": 9
+    "stock": 9,
+    "category": "categoria3",
+    "status": true
   },
   {
     "title": "producto10",
@@ -87,7 +105,9 @@
     "thumbnail": "esta es su imagen",
     "code": "2sdf",
     "id": 10,
-    "stock": 10
+    "stock": 10,
+    "category": "categoria1",
+    "status": true
   },
   {
     "title": "producto11",
@@ -96,7 +116,9 @@
     "thumbnail": "esta es su imagen",
     "code": "4fghfg",
     "id": 11,
-    "stock": 11
+    "stock": 11,
+    "category": "categoria2",
+    "status": true
   },
   {
     "title": "producto12",
@@ -105,6 +127,8 @@
     "thumbnail": "esta es su imagen",
     "code": "fgd44",
     "id": 12,
-    "stock": 12
+    "stock": 12,
+    "category": "categoria3",
+    "status": true
   }
 ]

@@ -3,12 +3,12 @@ import { ProductManager } from "../src/Clases/ProductManager.js";
 import { listaDeProductosBase } from "./TestProductsList.js";
 
 //CONSTANTES
-const PATHARCHIVOTEST = "./DesafioEntregableTres/Test/Test.json";
+const PathArchivoTest = "./DesafioEntregableTres/Test/Test.json";
 
 //TESTS
 export async function iniciarTesteo () {
     //  [ TEST 1 ]
-    const productManager = testIniciarInstaciaProductManager(PATHARCHIVOTEST);
+    const productManager = testIniciarInstaciaProductManager(PathArchivoTest);
     //  [ TEST 2 ]
     await testCargarProductosAlProductManajer(productManager);
     //  [ TEST 3 ]
