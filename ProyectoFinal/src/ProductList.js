@@ -8,8 +8,7 @@ export const listaDeProductos = [
       "code": "GF4e",
       "stock": 1,
       "category": "categoria1",
-      "status": true,
-      "id": 1
+      "status": true
     },
     {
       "title": "producto2",
@@ -19,8 +18,7 @@ export const listaDeProductos = [
       "code": "A343",
       "stock": 2,
       "category": "categoria2",
-      "status": true,
-      "id": 2
+      "status": true
     },
     {
       "title": "producto3",
@@ -30,8 +28,7 @@ export const listaDeProductos = [
       "code": "Y56",
       "stock": 3,
       "category": "categoria3",
-      "status": true,
-      "id": 3
+      "status": true
     },
     {
       "title": "producto4",
@@ -41,8 +38,7 @@ export const listaDeProductos = [
       "code": "rtrsaA",
       "stock": 4,
       "category": "categoria1",
-      "status": true,
-      "id": 4
+      "status": true
     },
     {
       "title": "producto5",
@@ -52,8 +48,7 @@ export const listaDeProductos = [
       "code": "G5533",
       "stock": 5,
       "category": "categoria2",
-      "status": true,
-      "id": 5
+      "status": true
     },
     {
       "title": "producto6",
@@ -63,8 +58,7 @@ export const listaDeProductos = [
       "code": "565dfd",
       "stock": 6,
       "category": "categoria3",
-      "status": true,
-      "id": 6
+      "status": true
     },
     {
       "title": "producto7",
@@ -74,8 +68,7 @@ export const listaDeProductos = [
       "code": "SdiD",
       "stock": 7,
       "category": "categoria1",
-      "status": true,
-      "id": 7
+      "status": true
     },
     {
       "title": "producto8",
@@ -85,8 +78,7 @@ export const listaDeProductos = [
       "code": "zxce3",
       "stock": 8,
       "category": "categoria2",
-      "status": true,
-      "id": 8
+      "status": true
     },
     {
       "title": "producto9",
@@ -96,8 +88,7 @@ export const listaDeProductos = [
       "code": "67jgh",
       "stock": 9,
       "category": "categoria3",
-      "status": true,
-      "id": 9
+      "status": true
     },
     {
       "title": "producto10",
@@ -107,8 +98,7 @@ export const listaDeProductos = [
       "code": "2sdf",
       "stock": 10,
       "category": "categoria1",
-      "status": true,
-      "id": 10
+      "status": true
     },
     {
       "title": "producto11",
@@ -118,8 +108,7 @@ export const listaDeProductos = [
       "code": "4fghfg",
       "stock": 11,
       "category": "categoria2",
-      "status": true,
-      "id": 11
+      "status": true
     },
     {
       "title": "producto12",
@@ -129,7 +118,6 @@ export const listaDeProductos = [
       "code": "fgd44",
       "stock": 12,
       "category": "categoria3",
-      "status": true,
-      "id": 12
+      "status": true
     }
   ]

@@ -8,9 +8,19 @@ export async function escribirEnArchivo (path, products) {
 }
 
 export async function leerDeArchivo (path) {
-
     const data = await fs.promises.readFile(path,"utf-8");
-    const arrayDeProductos = JSON.parse(data);
-    
-    return arrayDeProductos;
+    const arrayDeElementos = JSON.parse(data);
+  
+    return arrayDeElementos;
+}
+
+export function escribirIdEnArchivo(path, id) {
+    const data = JSON.stringify(id);
+    fs.writeFileSync(path, data);
+}
+
+export function leerIdDeArchivo (path) {
+    const data = fs.readFileSync(path,"utf-8");
+    const ultimoId = JSON.parse(data);
+    return ultimoId;
 }

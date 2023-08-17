@@ -4,7 +4,7 @@ import {__dirname} from "../Path.js";
 
 //CONSTANTES
 const pathArchivoServidor = __dirname + "/models/Products.json";
-const productManagerServer = new ProductManager(pathArchivoServidor);
+export const productManagerServer = new ProductManager(pathArchivoServidor);
 const productsRouter = Router();
 
 productsRouter.get("/", async (req,res) => {

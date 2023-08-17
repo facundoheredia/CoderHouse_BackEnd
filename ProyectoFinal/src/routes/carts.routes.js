@@ -4,46 +4,82 @@ import {__dirname} from "../Path.js";
 
 //CONSTANTES
 const pathCartServidor = __dirname + "/models/Carts.json";
-const cart = new CartManager (pathCartServidor);
+const cartManagerServer = new CartManager (pathCartServidor);
 const cartRouter = Router();
 
 cartRouter.get("/", async (req,res) => {
     let limit = parseInt(req.query.limit);
-    const arrayDeProductos = await cart.getProducts();
+    const arrayDeCarts = await cartManagerServer.getCarts();
 
-    if(arrayDeProductos) {
+    if(arrayDeCarts.length !== 0) {
         if(!limit) {
-            res.status(200).send(arrayDeProductos);
+            res.status(200).send(arrayDeCarts);
         } else {
-            res.status(200).send(arrayDeProductos.slice(0,limit));
+            res.status(200).send(arrayDeCarts.slice(0,limit));
         }
     } else {
-        res.status(404).send("No hay ningun Producto");
+        res.status(404).send("No hay ningun Carrito");
     }
 })
 
-cartRouter.get("/:pid", async (req,res) => {
-    const pid = parseInt(req.params.pid)
-    const productoBuscado = await cart.getProductById(pid);
+cartRouter.get("/:cid", async (req,res) => {
+    const cid = parseInt(req.params.cid)
+    const cartBuscado = await cartManagerServer.getCartById(cid);
 
-    if(productoBuscado) {
-        res.status(200).send(productoBuscado);
+    if(cartBuscado) {
+        res.status(200).send(cartBuscado);
     } else {
-        res.status(400).send("Producto no encontrado");
+        res.status(400).send("Carrito no encontrado");
+    }
+})
+
+cartRouter.get("/:cid/products", async (req,res) => {
+    const cid = parseInt(req.params.cid)
+    const productosDelCarrito = await cartManagerServer.getProductsFromCart(cid);
+
+    if(productosDelCarrito) {
+        res.status(200).send(productosDelCarrito);
+    } else {
+        res.status(400).send("Carrito no encontrado");
     }
 })
 
 cartRouter.post("/", async (req,res) => {
-    const code = req.body;
-    const confirmacion = await cart.getProductByCode(code);
+    const resultadoAddCart = await cartManagerServer.addCart(req.body);
+    
+    switch (resultadoAddCart) {
+        case 0:
+            res.status(200).send("Carrito creado con exito");
+            break;
+        case -1:
+            res.status(400).send("Ya existe el id del carrito");
+            break;
+    }
+})
 
-    if(confirmacion) {
-        req.status(400).send("Product ya creado");
-    } else {
-        const conf = await cart.addProduct(req.body);
-        if(conf) {
-            req.status(200).send("Product creado");
-        } 
+cartRouter.post("/:cid/products/:pid", async (req,res) => {
+    const cid = parseInt(req.params.cid);
+    const pid = parseInt(req.params.pid);
+
+    const resultadoAddCart = await cartManagerServer.addProductToCart(cid,pid);
+
+    console.log(`[resultado addProductToCart ${resultadoAddCart}]`);
+    
+    switch (resultadoAddCart) {
+        case 0:
+            res.status(200).send("Producto agregado al carrito con exito");
+            break;
+        case 1:
+            res.status(200).send("Se ha agregado mas cantidad al producto existente en el carrito");
+            break;
+        case -1:
+            res.status(400).send("No existe el id del carrito");
+            break;
+        case -2:
+            res.status(400).send("No existe el id del producto");
+            break;
+        default:
+            res.status(400).send("No se pudo resolver");
     }
 })
 
