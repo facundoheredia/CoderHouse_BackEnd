@@ -1,7 +1,7 @@
 import {escribirIdEnArchivo,leerIdDeArchivo} from "../FileSystem.js"
 import {__dirname} from "../Path.js"
 
-const PATH_ARCHIVO_ID_CART = __dirname + "/models/IdProduct.json";
+const PATH_ARCHIVO_ID_CART = __dirname + "/models/IdCart.json";
 
 //CLASE PRODUCT
 export class Cart {

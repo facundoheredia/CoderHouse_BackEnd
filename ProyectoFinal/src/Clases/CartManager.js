@@ -20,7 +20,6 @@ export class CartManager {
         return resultadoOperacion;
     }
 
-    //Se encarga de retornar todos los productos en el archivo JSON
     async getCarts() {
         const arrayDeCarts = await leerDeArchivo(this.path);
 
@@ -40,20 +39,32 @@ export class CartManager {
         let resultadoOperacion;
 
         if(cartEncontrado) {
-            console.log("[ENTRE AL CART ENCONTRADO]")
             if(productoEncontrado) {
-                console.log("[ENTRE AL PRODUCT ENCONTRADO]")
                 const productosEnCarrito = await this.getProductsFromCart(cid);
 
                 if(productosEnCarrito.length !== 0) {
                     const producto = productosEnCarrito.find(producto => producto.id === pid);
-                    console.log(producto)
-                    producto.quantity++;
+                    const indiceDelProductoBuscado = productosEnCarrito.findIndex(producto => producto.id === pid);
+                    if(producto) {
+                        producto.quantity ++;
+                        productosEnCarrito.splice(indiceDelProductoBuscado,1,producto);
+                    } else {
+                        productosEnCarrito.push({id:productoEncontrado.id,quantity: 1});
+                    }
                     resultadoOperacion = 1;
                 } else {
                     productosEnCarrito.push({id:productoEncontrado.id,quantity: 1});
                     resultadoOperacion = 0;
                 }
+                const arrayDeCarritos = await this.getCarts();
+                const indiceDelCarritoBuscado = arrayDeCarritos.findIndex(cart => cart.id === cid);
+
+                cartEncontrado.products = productosEnCarrito;
+                arrayDeCarritos.splice(indiceDelCarritoBuscado,1,cartEncontrado);
+
+                this.carts = arrayDeCarritos;
+
+                await escribirEnArchivo(this.path,this.carts);
             } else {
                 resultadoOperacion -2;
             }

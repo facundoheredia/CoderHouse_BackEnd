@@ -51,6 +51,21 @@ export function servidorMenuPrincipal () {
     mensajeDeInicio += "<h4>[7] => LISTA DE TODOS LOS CARTS</h4>";
     mensajeDeInicio += "<p>En esta url se mostraran todos los carts guardados en el servidor. URL: http://localhost:4000/api/carts</p>";
     mensajeDeInicio += "<a href=http://localhost:4000/api/carts>[CARTS]</a>";
+    mensajeDeInicio += "<p>En esta url se mostraran todos los carts guardados en el servidor segun un limite indicado.</p>";
+    mensajeDeInicio += "Se debera usar el url de carts agregandole .../?limit=2 al final segun el limite que se quiera mostrar.";
+    mensajeDeInicio += "<p>URL: http://localhost:4000/api/carts/?limit=2</p>";
+    mensajeDeInicio += "<h4>[8] => CARGAR UN NUEVO CART</h4>";
+    mensajeDeInicio += "<p>Se podra utilizar el metodo POST usando Postman, Thunder Cliente o similar</p>";
+    mensajeDeInicio += "<p>Utilizar el metodo POST con la url de cart (punto 7)</p>";
+    mensajeDeInicio += "<p>No se debe enviar un body, solo usar metodo POST con url de carts, se creara un cart nuevo con un array vacion de products y su id correspondiente</p>";
+    mensajeDeInicio += "<h4>[9] => BUSCAR UN CART POR ID</h4>";
+    mensajeDeInicio += "<p>Se debera usar el url de carts agregandole .../1 al final segun la id del cart buscado.</p>";
+    mensajeDeInicio += "<p>URL: http://localhost:4000/api/carts/1</p>";
+    mensajeDeInicio += "<h4>[10] => CARGAR NUEVO PRODUCTO A UN CART</h4>";
+    mensajeDeInicio += "<p>Se podra utilizar el metodo POST usando Postman, Thunder Cliente o similar</p>";
+    mensajeDeInicio += "<p>Utilizar el metodo POST con la url de carts (punto 2)</p>";
+    mensajeDeInicio += "<p>Se debera agregar al url de carts agregandole .../1 para el ID del cart al cual agregar, luego .../products y por ultimo el id del producto que se quiera agregar.</p>";
+    mensajeDeInicio += "<p>URL ejemplo: http://localhost:4000/api/carts/1/products/2</p>";
 
     return mensajeDeInicio;
 }
