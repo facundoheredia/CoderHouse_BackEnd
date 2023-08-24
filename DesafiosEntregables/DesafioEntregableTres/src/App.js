@@ -9,8 +9,12 @@ const productManagerServer = new ProductManager(pathArchivoServidor);
 
 APP.use(ServidorLecturaJson);
 
+APP.get("/static",(req,res) => {
+    res.render("home");
+});
+
 APP.get("/", (req,res) => {
-    res.send(servidorMenuPrincipal())
+    res.send(servidorMenuPrincipal());
 });
 
 APP.listen(PORT, () => {
@@ -34,7 +38,6 @@ APP.get("/products", async (req,res) => {
 
     if(!limit) {
         res.send(arrayDeProductos);
-        //res.sendFile(path.join(__dirname+'/Productos.html'))
     } else {
         res.send(arrayDeProductos.slice(0,limit));
     }
@@ -50,17 +53,3 @@ APP.get("/products/:pid", async (req,res) => {
         res.status(400).send("Producto no encontrado");
     }
 });
-
-
-/*
-APP.get("/products", async (req,res) => {
-    let limit = parseInt(req.query.limit);
-    const arrayDeProductos = await productManagerServer.getProducts();
-
-    if(!limit) {
-        res.send(arrayDeProductos);
-    } else {
-        res.send(arrayDeProductos.slice(0,limit));
-    }
-});
-*/
