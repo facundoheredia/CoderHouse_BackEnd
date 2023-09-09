@@ -29,6 +29,21 @@ export function serverSocketIniciar () {
             socket.emit("productos", productosActualizados);
         });
 
+        socket.on("modificarEstadoProducto",async productoEstadoModificado => {
+            const {idProductoEstadoModificado, estadoProductoEstadoModificado} = productoEstadoModificado;
+            let estado = estadoProductoEstadoModificado;
+
+            if(estado === "Activado") {
+                estado = true;
+            } else {
+                estado = false;
+            }
+
+            await productoModel.findByIdAndUpdate(idProductoEstadoModificado,{estado});
+            const productosActualizados = await productoModel.find();
+            socket.emit("productos", productosActualizados);
+        });
+
         socket.on("EnviarNuevoMensaje", async nuevoMensaje => {
             const {email, mensaje} = nuevoMensaje;
 

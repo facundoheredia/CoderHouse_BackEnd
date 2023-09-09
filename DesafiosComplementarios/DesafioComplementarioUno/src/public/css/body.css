@@ -26,3 +26,7 @@
 .textoProducto {
     font-size: 0.75rem;
 }
+
+.formulariosProductos {
+    min-height: 25vh;
+}
