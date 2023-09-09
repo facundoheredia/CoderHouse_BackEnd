@@ -12,7 +12,7 @@
 }
 
 .tituloSeccion {
-    height: 10vh;
+    height: 5vh;
 }
 
 .tarjetasChat {
@@ -21,4 +21,8 @@
 
 .horaChatEnviado {
     font-size: 0.75rem !important;
+}
+
+.textoProducto {
+    font-size: 0.75rem;
 }
