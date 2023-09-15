@@ -139,6 +139,8 @@ export function serverSocketIniciar () {
 
         socket.on("verDetalleCarrito", async carrito => {
             socket.emit("carritoDetalle", carrito);
+            console.log("el server socket recibe este carrito");
+            console.log(carrito);
         })
 
         socket.on("EnviarNuevoMensaje", async nuevoMensaje => {

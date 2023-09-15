@@ -23,12 +23,14 @@ viewsRouter.get("/carritos", async (req,res) => {
     });
 })
 
-viewsRouter.get("/:detalleCarrito", async (req,res) => {
+
+viewsRouter.get("/detalleCarrito", async (req,res) => {
     res.render("carritoDetalle",{
         title:"Detalle del carrito",
-        js:"carritoDetalle.js"
+        js:"/carritoDetalle.js"
     });
 })
+
 
 viewsRouter.get("/mensajes", async (req,res) => {
     res.render("mensajes",{
