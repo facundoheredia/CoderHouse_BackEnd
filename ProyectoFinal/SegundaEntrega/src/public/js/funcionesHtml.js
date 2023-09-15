@@ -76,7 +76,7 @@ function actualizarListaCarritos (carritosActualizados) {
                 </ul>
                 <div class="card-body d-flex justify-content-center align-items-center pt-2 pb-2">
                     <button type="button" class="btn btn-success" id="botonDetallesCarrito-${carrito._id}"}>
-                        <a href="http://localhost:4000/views/detalleCarrito"><p class="card-text ps-2 pe-2">Detalles del carrito</p></a>
+                        <a href="http://localhost:4000/views/carritos/${carrito._id}"><p class="card-text ps-2 pe-2">Detalles del carrito</p></a>
                     </button>
                 </div>
             </div>
@@ -127,11 +127,11 @@ function actualizarListaDeMensajes (mensajesActualizados) {
     bodyMensajes.innerHTML = listaDemensajes;
 }
 
-function actualizarListaDeProductosEnCarrito (carrito) {
+function actualizarListaDeProductosEnCarrito (productos) {
     const bodyCarrito = document.getElementById("listaProductosEnCarrito");
     let listaDeProductos = " ";
 
-    carrito.forEach(producto => {
+    productos.forEach(producto => {
 
         listaDeProductos +=
         `<li>${producto._id}</li>`

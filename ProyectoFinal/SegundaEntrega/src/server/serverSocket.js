@@ -136,11 +136,16 @@ export function serverSocketIniciar () {
             const carritosActualizados = await carritoModel.find();
             socket.emit("carritos", carritosActualizados);
         });
-
+        
         socket.on("verDetalleCarrito", async carrito => {
-            socket.emit("carritoDetalle", carrito);
+
+            const carritoEncontrado = await carritoModel.findById(carrito._id).lean();
+
+            const productosEnCarrito = carritoEncontrado.productos;
+
+            socket.emit("carritoDetalle", productosEnCarrito);
             console.log("el server socket recibe este carrito");
-            console.log(carrito);
+            console.log(productosEnCarrito)
         })
 
         socket.on("EnviarNuevoMensaje", async nuevoMensaje => {

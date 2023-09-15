@@ -68,10 +68,12 @@ const socketClienteVerProductosEnCarrito = (carrito) => {
 
 // DETALLES CARRITO
 const socketClienteMostrarProductosEnCarrito = () => {
-    socketCliente.on("carritoDetalle",async carrito => {
-        console.log("hola dentro del socket que recibe el carrito");
-        actualizarListaDeProductosEnCarrito (carrito);
-    });
+    console.log("hola socket recibiendo carrito");
+    socketCliente.on("carritoDetalle", async productos => {
+        actualizarListaDeProductosEnCarrito (productos);
+        console.log("el server socket recibe este carrito");
+        console.log(carrito);
+    })
 }
 
 export { socketClienteCargarMensajes, socketClienteCargarProductos, socketClienteAgregarProductoAlCarrito, socketClienteNuevoProducto, socketClienteAgregarProducto, socketClienteEliminarProducto, socketClienteModificarEstadoDelProducto, socketClienteCargarCarritos, socketClienteNuevoCarrito,socketClienteNuevoProductoEnCarrito,socketClienteEliminarProductoDelCarrito,socketClienteVerProductosEnCarrito,socketClienteEnviarMensaje,socketClienteMostrarProductosEnCarrito };

@@ -12,7 +12,15 @@ productRouter.get ("/", async (req,res) => {
     let queries = "?";
 
     if(limit) {
-        queries += `limit=${limit}`
+        queries += `limit=${limit}`;
+    }
+
+    if(page) {
+        queries+= `page=${page}`;
+    }
+
+    if(sort) {
+        queries+= `sort=${sort}`;
     }
 
     try {
@@ -29,8 +37,8 @@ productRouter.get ("/", async (req,res) => {
             page: resultado.page,
             hasPrevPage: resultado.hasPrevPage,
             hasNextPage: resultado.hasNextPage,
-            prevLink: resultado.hasPrevPage ? `${baseUlr}${queries}&page=${resultado.prevPage}$sort=${sort}`: null,
-            nextLink: resultado.hasNextPage ? `${baseUlr}${queries}&page=${resultado.nextPage}$sort=${sort}`: null
+            prevLink: resultado.hasPrevPage ? `${baseUlr}${queries}`: null,
+            nextLink: resultado.hasNextPage ? `${baseUlr}${queries}`: null
         }
 
         res.status(200).send({respuesta: "[OK]", mensaje: respuesta});

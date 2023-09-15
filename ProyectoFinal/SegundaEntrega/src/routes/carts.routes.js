@@ -85,7 +85,7 @@ cartRouter.put ("/:cid", async (req,res) => {
             productos.forEach( async productoNuevo => {
                 const indiceProducto = carrito.productos.findIndex(productoEnCarrito => productoEnCarrito.idProducto._id.toString() === productoNuevo.idProducto);
                 if(indiceProducto != -1) {
-                    carrito.productos[indiceProducto].cantidad = cantidad;
+                    carrito.productos[indiceProducto].cantidad = productoNuevo.cantidad;
                     res.status(200).send({respuesta: "[OK]", mensaje: "Se agrego correctamente mas cantidad al producto del carrito"});
                 } else {
                     carrito.productos.push({idProducto: productoNuevo.idProducto, cantidad: productoNuevo.cantidad});
