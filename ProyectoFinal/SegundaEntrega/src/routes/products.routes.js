@@ -4,30 +4,21 @@ import { productoModel } from "../models/products.models.js";
 const productRouter = Router ();
 
 productRouter.get ("/", async (req,res) => {
-    const limit = parseInt(req.query.limit) || 10;
-    const page = parseInt(req.query.page) || 1;
-    const sort = req.query.sort || {};
-    const filtros = {};
+    const {limit, page, sort, ...rest} = req.query;
     const baseUlr = `${req.headers.host}${req.baseUrl}`;
-    let queries = "?";
-
-    if(limit) {
-        queries += `limit=${limit}`;
-    }
-
-    if(page) {
-        queries+= `page=${page}`;
-    }
+    let ordenar;
 
     if(sort) {
-        queries+= `sort=${sort}`;
+        if(sort == "asc") {
+            ordenar = {precio: 1};
+        } else {
+            ordenar = {precio: -1};
+        }
     }
 
     try {
-        const resultado = await productoModel.paginate(filtros,{limit, page, sort});
+        const resultado = await productoModel.paginate({},{limit, page, sort: ordenar,...rest});
 
-        
-        
         const respuesta = {
             status: resultado.status,
             payload: resultado.docs,
@@ -37,8 +28,8 @@ productRouter.get ("/", async (req,res) => {
             page: resultado.page,
             hasPrevPage: resultado.hasPrevPage,
             hasNextPage: resultado.hasNextPage,
-            prevLink: resultado.hasPrevPage ? `${baseUlr}${queries}`: null,
-            nextLink: resultado.hasNextPage ? `${baseUlr}${queries}`: null
+            prevLink: resultado.hasPrevPage ? `${baseUlr}?limit=${limit ? 10 : limit}&page=${page ? (parseInt(page) - 1) : 1}&sort=${sort}`: null,
+            nextLink: resultado.hasNextPage ? `${baseUlr}?limit=${limit ? 10 : limit}&page=${page ? (parseInt(page) + 1) : 1}&sort=${sort}`: null
         }
 
         res.status(200).send({respuesta: "[OK]", mensaje: respuesta});
@@ -113,3 +104,39 @@ productRouter.delete ("/:pid", async (req,res) => {
 })
 
 export default productRouter;
+
+
+/*
+
+
+productRouter.get ("/", async (req,res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const sort = req.query.sort || {};
+    const filtros = {};
+    const baseUlr = `${req.headers.host}${req.baseUrl}`;
+    let queries = "?";
+
+    try {
+        const resultado = await productoModel.paginate(filtros,{limit, page, sort});
+
+        const respuesta = {
+            status: resultado.status,
+            payload: resultado.docs,
+            totalPages: resultado.totalPages,
+            prevPage: resultado.prevPage,
+            nextPage: resultado.nextPage,
+            page: resultado.page,
+            hasPrevPage: resultado.hasPrevPage,
+            hasNextPage: resultado.hasNextPage,
+            prevLink: resultado.hasPrevPage ? `${baseUlr}${queries}`: null,
+            nextLink: resultado.hasNextPage ? `${baseUlr}${queries}`: null
+        }
+
+        res.status(200).send({respuesta: "[OK]", mensaje: respuesta});
+    } catch (error){
+        res.status(400).send({respuesta: "[ERROR]", mensaje: "No se han podido cargar los productos"});
+    }
+})
+
+*/

@@ -1,4 +1,5 @@
 //IMPORTACIONES
+import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import productsRouter from "../routes/products.routes.js";
@@ -55,8 +56,6 @@ function appSetUpUseRoutes () {
 }
 
 //Conectarse a la base de datos de mongo
-const usuarioMongodb = "arqfacundoheredia";
-const contraseniaMongodb = "WEjDnSk8gwqhPztt";
-mongoose.connect(`mongodb+srv://${usuarioMongodb}:${contraseniaMongodb}@cluster0.ojyqrvg.mongodb.net/?retryWrites=true&w=majority`)
+mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log("[MONGO DB] CONEXION REALIZADA CON EXITO"))
 .catch(() => console.log("[MONGO DB] CONEXION FALLIDA"));
