@@ -2,14 +2,19 @@
 import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import productsRouter from "../routes/products.routes.js";
 import usersRouter from "../routes/users.routes.js";
 import cartsRouter from "../routes/carts.routes.js";
 import mensajeRouter from "../routes/messages.routes.js";
+import sesionRouter from "../routes/sesiones.routes.js";
 import viewRouter from "../routes/views.routes.js";
 import { engine } from "express-handlebars";
 import { __dirname } from "../Path.js";
 import path from "path";
+
 
 //Especificar puerto
 export const PORT = 4000;
@@ -43,6 +48,20 @@ function appSetUpUseConfig () {
     APP.use(express.json());
     //Permitir largas querys
     APP.use(express.urlencoded({extended: true}));
+    APP.use(cookieParser(process.env.SIGNED_COOKIE));
+    APP.use(session ({
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URL,
+            mongoOptions: {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            },
+            ttl: 1000
+        }),
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+    }));
 }
 
 function appSetUpUseRoutes () {
@@ -51,6 +70,7 @@ function appSetUpUseRoutes () {
     APP.use("/api/usuarios",usersRouter);
     APP.use("/api/carritos",cartsRouter);
     APP.use("/api/mensajes",mensajeRouter);
+    APP.use("/api/sesion",sesionRouter);
     APP.use("/views",viewRouter);
     APP.use("/views",express.static(path.join(__dirname,"/public")));
 }

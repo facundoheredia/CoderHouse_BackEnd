@@ -548,5 +548,27 @@
     "status": false,
     "category": "Fire Sprinkler System",
     "id": 50
+  },
+  {
+    "title": "fdfsd",
+    "description": "prueba",
+    "price": "999999",
+    "thumbnail": "aca va la imagen",
+    "code": "UTRT",
+    "stock": "99",
+    "status": true,
+    "category": "Categoria 2",
+    "id": 54
+  },
+  {
+    "title": "suiza",
+    "description": "bonita",
+    "price": "3434",
+    "thumbnail": "rterte",
+    "code": "ertedrgdfgd",
+    "stock": "99",
+    "status": true,
+    "category": "Categoria 3",
+    "id": 55
   }
 ]

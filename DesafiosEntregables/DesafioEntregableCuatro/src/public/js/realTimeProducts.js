@@ -1,7 +1,5 @@
 const socketCliente = io();
 
-console.log("hola estoy en js realtime products")
-
 socketCliente.on("productosEnTiempoReal",async (productosActualizados) => {
     actualizarLista (productosActualizados);
 });
