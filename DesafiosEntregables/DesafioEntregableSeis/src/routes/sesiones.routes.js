@@ -9,6 +9,12 @@ sesionRouter.post("/login", passport.authenticate("login"), async (req,res) => {
     if(!req.user) {
         res.status(401).send({mensaje: "usuario invalido"});
     } else {
+        req.session.user = {
+            nombre: req.user.nombre,
+            apellido: req.user.apellido,
+            edad: req.user.edad,
+            email: req.user.email
+        }
         res.status(200).send({payload: req.user});
     }
    } catch (error) {
@@ -17,7 +23,6 @@ sesionRouter.post("/login", passport.authenticate("login"), async (req,res) => {
 })
 
 sesionRouter.post("/signUp", passport.authenticate("signUp"), async (req,res) => {
-
     try {
      if(!req.user) {
          res.status(400).send({mensaje: "usuario ya existente"});

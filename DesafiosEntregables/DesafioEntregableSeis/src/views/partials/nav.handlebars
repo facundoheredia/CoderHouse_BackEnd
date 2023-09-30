@@ -14,12 +14,14 @@
           <p>PRODUCTOS</p>
         </a>
       </li>
+      {{#if admin}}
       <li class="nav-item">
         <a class="nav-link text-light d-flex flex-row" href="http://localhost:4000/views/carritos">
           <span class="material-symbols-outlined pe-2">shopping_cart</span>
           <p>CARRITOS</p>
         </a>
       </li>
+      {{/if}}
       <li class="nav-item">
         <a class="nav-link text-light d-flex flex-row" href="http://localhost:4000/views/mensajes">
           <span class="material-symbols-outlined pe-2">sms</span>

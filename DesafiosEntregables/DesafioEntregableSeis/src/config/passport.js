@@ -15,6 +15,7 @@ const initPassport = () => {
                  const usuario = await usuarioModel.findOne({email: email})
 
                  if(usuario) {
+                    console.log("El usuario ya existe");
                     return done(null, false);
                  }
 
@@ -45,7 +46,7 @@ const initPassport = () => {
                 return done(null, false);
 
             } catch(error) {
-                return done(error)
+                return done(error);
             }
         }
     ))
@@ -59,7 +60,7 @@ const initPassport = () => {
             const usuario = await usuarioModel.findOne({email: profile._json.email});
 
             if(usuario) {
-                done(null, false);
+                done(null, usuario);
             } else {
                 const usuarioCreado = await usuarioModel.create({nombre: profile._json.name, apellido: " ", email: profile._json.email, edad: 18, password: crearHash(profile._json.email + profile._json.name)});
 
@@ -70,16 +71,16 @@ const initPassport = () => {
         }
     }))
 
-    passport.use("githubLogin", new GithubStrategy({
+    passport.use("githubViews", new GithubStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.SECRET_CLIENT,
         callbackURL: process.env.CALLBACK_URL_VIEWS
     }, async (accessToken, refreshToken, profile, done) => {
-        console.log(profile._json)
         try {
             const usuario = await usuarioModel.findOne({email: profile._json.email});
+
             if(usuario) {
-                done(null, false);
+                done(null, usuario);
             } else {
                 const usuarioCreado = await usuarioModel.create({nombre: profile._json.name, apellido: " ", email: profile._json.email, edad: 18, password: crearHash(profile._json.email + profile._json.name)});
 

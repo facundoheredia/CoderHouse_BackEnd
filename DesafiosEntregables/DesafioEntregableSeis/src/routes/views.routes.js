@@ -52,28 +52,32 @@ viewsRouter.get("/login", async (req,res) => {
     });
 })
 
-viewsRouter.post("/login", passport.authenticate("login", {scope: ["user:email"]}), async (req,res) => {
-   try {
-    if(!req.user) {
-        res.status(401).send({mensaje: "usuario invalido"});
-        res.redirect("/views/login");
-    } else {
-        req.session.login = true;
-        res.redirect("/views/home");
+viewsRouter.post("/login", passport.authenticate("login",{successRedirect:"./home",failureRedirect:"./login"}), async (req,res) => {
+    try {
+        if(!req.user) {
+            res.status(401).send({mensaje: "usuario invalido"});
+        } else {
+            res.status(200).send({payload: req.user});
+        }
+    } catch (error) {
+        res.status(500).send({mensaje: `[ERROR] - error al iniciar sesion ${error}`});
     }
-   } catch (error) {
-    res.status(500).send({mensaje: `[ERROR] - error al iniciar sesion ${error}`});
-   }
 })
 
-viewsRouter.get("/loginWithGithub", passport.authenticate("githubLogin", {scope: ["user:email"]}), async (req,res) => {
-    res.redirect("/views/productos")
- })
+viewsRouter.get("/loginWithGithub", passport.authenticate("githubViews", {scope:["user:email"]}), async (req,res) => {})
 
- viewsRouter.get("/loginWithGithubCallback", passport.authenticate("githubLogin",{successRedirect:"/home", failureRedirect:"/login"}), async (req,res) => {
-    req.session.user = req.user;
-    console.log("hola pase por el login github");
- })
+viewsRouter.get("/loginWithGithubCallback", passport.authenticate("githubViews",{successRedirect:"./home", failureRedirect:"./login"}), async (req,res) => {
+    try {
+        if(!req.user) {
+            res.status(401).send({mensaje: "usuario invalido"});
+        } else {
+            req.session.user = req.user;
+            res.status(200).send({payload: req.user});
+        }
+    } catch (error) {
+        res.status(500).send({mensaje: `[ERROR] - error al iniciar sesion ${error}`});
+    }
+})
 
 viewsRouter.get("/loguot", async (req,res) => {
     req.session.destroy();
@@ -81,13 +85,21 @@ viewsRouter.get("/loguot", async (req,res) => {
 })
 
 viewsRouter.get("/home", async (req,res) => {
-    if(req.session.login) {
+    if(req.user) {
         const usuarioLogeado = req.user.toJSON();
+        
+        let esAdmin = false;
+
+        if(usuarioLogeado.rol == "admin") {
+            esAdmin = true;
+        }
+
         res.render("home",{
             title:"Home",
             js:"script.js",
             css:"body.css",
-            usuario: usuarioLogeado
+            usuario: usuarioLogeado,
+            admin: esAdmin
         });
     } else {
         res.render("home",{
@@ -100,13 +112,20 @@ viewsRouter.get("/home", async (req,res) => {
 })
 
 viewsRouter.get("/productos", async (req,res) => {
-    if(req.session.login) {
-        const usuarioLogeado = req.session.usuario;
+    if(req.user) {
+        const usuarioLogeado = req.user.toJSON();
+        let esAdmin = false;
+
+        if(usuarioLogeado.rol == "admin") {
+            esAdmin = true;
+        }
+
         res.render("productos",{
             title:"Productos",
             js:"productos.js",
             css:"body.css",
-            usuario: usuarioLogeado
+            usuario: usuarioLogeado,
+            admin: esAdmin
         });
     } else {
         res.render("productos",{
@@ -118,8 +137,9 @@ viewsRouter.get("/productos", async (req,res) => {
 })
 
 viewsRouter.get("/carritos", async (req,res) => {
-    if(req.session.login) {
-        const usuarioLogeado = req.session.usuario;
+    if(req.user) {
+        const usuarioLogeado = req.user.toJSON();
+
         res.render("carritos",{
             title:"Carritos",
             js:"carritos.js",
@@ -136,8 +156,8 @@ viewsRouter.get("/carritos", async (req,res) => {
 })
 
 viewsRouter.get("/carritos/:cid", async (req,res) => {
-    if(req.session.login) {
-        const usuarioLogeado = req.session.usuario;
+    if(req.user) {
+        const usuarioLogeado = req.user.toJSON();
         res.render("carritoDetalle",{
             title:"Detalle del carrito",
             js:"../../js/carritoDetalle.js",
@@ -154,8 +174,8 @@ viewsRouter.get("/carritos/:cid", async (req,res) => {
 })
 
 viewsRouter.get("/mensajes", async (req,res) => {
-    if(req.session.login) {
-        const usuarioLogeado = req.session.usuario;
+    if(req.user) {
+        const usuarioLogeado = req.user.toJSON();
         res.render("mensajes",{
             title:"Mensajes",
             js:"mensajes.js",
@@ -172,69 +192,3 @@ viewsRouter.get("/mensajes", async (req,res) => {
 })
 
 export default viewsRouter;
-
-
-/*
-viewsRouter.post("/login", async (req,res) => {
-    const {email, contrasenia} = req.body;
-    const errores = [];
-
-    const usuarioRegistrado = await usuarioModel.findOne({email: email});
-
-    if(usuarioRegistrado) {
-        if(contrasenia == usuarioRegistrado.contrasenia) {
-            req.session.login = true;
-            req.session.usuario = usuarioRegistrado;
-            res.redirect("/views/home");
-        } else {
-            errores.push({mensaje:"La contraseña no es correcta vuelvelo a intentar"})
-        }
-    } else {
-        errores.push({mensaje:"El usuario no existe vuelvelo a intentar"})
-    }
-
-    if(errores.length > 0) {
-        res.render("login", {
-            errores: errores,
-            title:"Ingresar",
-            js:"ingresar.js",
-            css:"body.css"
-        })
-    }
-})
-*/
-
-/*
-viewsRouter.get("/loginWithGithub", passport.authenticate("githubLogin", {scope: ["user:email"]}), async (req,res) => {
-    try {
-     if(!req.user) {
-         res.status(401).send({mensaje: "usuario invalido"});
-     } else {
-         req.session.login = true;
-         res.redirect("/views/home");
-     }
-    } catch (error) {
-     res.status(500).send({mensaje: `[ERROR] - error al iniciar sesion ${error}`});
-    }
- })
-
- viewsRouter.get("/loginWithGithubCallback", passport.authenticate("githubLogin"), async (req,res) => {
-    if(req.session.login) {
-        const usuarioLogeado = req.user.toJSON();
-        console.log(usuarioLogeado.nombre);
-        res.render("home",{
-            title:"Home",
-            js:"script.js",
-            css:"body.css",
-            usuario: usuarioLogeado
-        });
-    } else {
-        res.render("home",{
-            title:"Home",
-            js:"script.js",
-            css:"body.css",
-            usuario: false
-        });
-    }
- })
- */
