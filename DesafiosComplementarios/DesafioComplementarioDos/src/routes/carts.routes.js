@@ -9,7 +9,12 @@ cartRouter.get ("/", async (req,res) => {
 
     try {
         const carritos = await carritoModel.find().limit(limite);
-        res.status(200).send({respuesta: "[OK]", mensaje: carritos});
+
+        if(carritos) {
+            res.status(200).send({respuesta: "[OK]", mensaje: carritos});
+        } else {
+            res.status(404).send({respuesta: "[ERROR]", mensaje: "No se han podido encontrar a los carritos"});
+        }
     } catch (error){
         res.status(400).send({respuesta: "[ERROR]", mensaje: "No se han podido cargar los carritos"});
     }
@@ -56,6 +61,7 @@ cartRouter.post ("/:cid/productos/:pid", async (req,res) => {
             const producto = await productoModel.findById(pid);
             if(producto) {
                 const indiceProducto = carrito.productos.findIndex(producto => producto.idProducto._id.toString() === pid);
+                
                 if(indiceProducto != -1) {
                     carrito.productos[indiceProducto].cantidad = cantidad;
                     res.status(200).send({respuesta: "[OK]", mensaje: "Se agrego correctamente mas cantidad al producto del carrito"});
@@ -111,6 +117,7 @@ cartRouter.put ("/:cid/productos/:pid", async (req,res) => {
 
         if(carrito) {
             const producto = await productoModel.findById(pid);
+
             if(producto) {
                 const indiceProducto = carrito.productos.findIndex(producto => producto.idProducto._id.toString() === pid);
                 carrito.productos[indiceProducto].cantidad = cantidad;

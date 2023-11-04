@@ -4,7 +4,7 @@
         "nodemon": "^3.0.1"
     },
     "scripts": {
-        "dev": "nodemon ./DesafiosComplementarios/DesafioComplementarioTres/src/App.js"
+        "dev": "nodemon ./ProyectoFinal/TercerEntrega/src/App.js"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",

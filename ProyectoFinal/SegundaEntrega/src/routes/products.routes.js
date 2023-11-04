@@ -4,20 +4,19 @@ import { productoModel } from "../models/products.models.js";
 const productRouter = Router ();
 
 productRouter.get ("/", async (req,res) => {
-    const {limit, page, sort, ...rest} = req.query;
+    const {limit = 10, page = 1, sort = 'asc', ...rest} = req.query;
     const baseUlr = `${req.headers.host}${req.baseUrl}`;
-    let ordenar;
+    
+    let query = {}
 
-    if(sort) {
-        if(sort == "asc") {
-            ordenar = {precio: 1};
-        } else {
-            ordenar = {precio: -1};
-        }
-    }
+    const ordenar = { price: (sort === 'asc' ? 1 : 0)}
+
+    if (rest.categoria) query.categoria = rest.categoria;
+    
+    if(rest.estado) query.estado = rest.estado;
 
     try {
-        const resultado = await productoModel.paginate({},{limit, page, sort: ordenar,...rest});
+        const resultado = await productoModel.paginate(query,{limit, page, sort: ordenar});
 
         const respuesta = {
             status: resultado.status,
