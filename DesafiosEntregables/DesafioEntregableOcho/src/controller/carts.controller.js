@@ -160,17 +160,18 @@ export const deleteCarrito = async (req,res) => {
 
 export const postCompra = async (req,res) => {
     const {cid} = req.params;
-
+    const emailComprador = req.user.email;
+  
     try {
         const carrito = await carritoModel.findById(cid);
-        if (carrito) {
+        if (carrito) {        
             const productosVerificados = await verificarStock(carrito.productos);
             const montoTotalCompra = calcularMontoCompra(productosVerificados);
-            const nuevoTicket = await ticketModel.create({montoCompra: montoTotalCompra,productos: productosVerificados, comprador:"pruebaDeTicket"});
+            const nuevoTicket = await ticketModel.create({montoCompra: montoTotalCompra,productos: productosVerificados, comprador:emailComprador});
 
             if(nuevoTicket) {
-                res.status(200).send({respuesta: "[OK]", mensaje: "Se ha generado correctamente el ticket" + nuevoTicket});
-                console.log(nuevoTicket)
+                carrito.productos = [];
+                res.status(200).send({respuesta: "[OK]", mensaje: "Se ha generado correctamente el ticket, los productos que no se pudieron procesar se han eliminado del carrito" + nuevoTicket});
             } else {
                 res.status(404).send({respuesta: "[ERROR]", mensaje: "No se ha podido generar el ticket"});
             }
@@ -192,7 +193,6 @@ const verificarStock = async (productosEnCarrito) => {
         if(productoEnDeposito) {
             if(productoEnCarrito.cantidad <= productoEnDeposito.stock) {
                 productosVerificados.push(productoEnCarrito);
-
             }
         }
     }

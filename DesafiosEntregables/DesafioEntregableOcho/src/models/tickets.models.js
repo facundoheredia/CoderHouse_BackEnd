@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-//import {usuarioModel} from "./users.models.js";
 import {v4 as uuidv4} from "uuid";
 
 const ticketSchema = new Schema ({
@@ -29,6 +28,5 @@ ticketSchema.pre("save", async function (next) {
     }
     next();
 })
-
 
 export const ticketModel = model("tickets", ticketSchema);
