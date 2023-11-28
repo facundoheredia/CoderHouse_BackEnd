@@ -170,8 +170,7 @@ export const postCompra = async (req,res) => {
             const nuevoTicket = await ticketModel.create({montoCompra: montoTotalCompra,productos: productosVerificados, comprador:emailComprador});
 
             if(nuevoTicket) {
-                carrito.productos = [];
-                res.status(200).send({respuesta: "[OK]", mensaje: "Se ha generado correctamente el ticket, los productos que no se pudieron procesar se han eliminado del carrito" + nuevoTicket});
+                res.status(200).send({respuesta: "[OK]", mensaje: `Se ha generado correctamente el ticket, los productos que no se pudieron procesar se han eliminado del carrito. Este es su codigo del ticket generado [${nuevoTicket.codigoCompra}]`});
             } else {
                 res.status(404).send({respuesta: "[ERROR]", mensaje: "No se ha podido generar el ticket"});
             }
