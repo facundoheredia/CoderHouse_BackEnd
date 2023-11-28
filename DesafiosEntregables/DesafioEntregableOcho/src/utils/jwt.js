@@ -16,7 +16,7 @@ export const authToken = (req,res,next) => {
 
     const token = authHeader.split(" ")[1];
 
-    jwt.verify(token, process.env.JWT_SECRET, (error,credentials) => {
+    jwt.sign(token, process.env.JWT_SECRET, (error,credentials) => {
         if(error) {
             return res.status(403).send({error: "Usuario no autorizado, token invalido"})
         }
