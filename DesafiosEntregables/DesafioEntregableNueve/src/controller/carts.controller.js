@@ -2,7 +2,6 @@ import { carritoModel } from "../models/carts.models.js";
 import { productoModel } from "../models/products.models.js";
 import { ticketModel } from "../models/tickets.models.js";
 import { usuarioModel } from "../models/users.models.js";
-import {v4 as uuidv4} from "uuid";
 
 export const getCarritos = async (req,res) => {
     const {limite} = req.query;
@@ -84,7 +83,6 @@ export const putCarrito = async (req,res) => {
                 }
                 await carritoModel.findByIdAndUpdate(cid, carrito);
             });
-            res.status(200).send({respuesta: "[OK]", mensaje: "Se elimino el producto del carrito"});
         } else {
             res.status(404).send({respuesta: "[ERROR]", mensaje: "No se ha podido encontrar el carrito"});
         }

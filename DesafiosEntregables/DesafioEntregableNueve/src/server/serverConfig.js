@@ -15,11 +15,13 @@ import { addLogger } from "../utils/logger.js";
 import productsRouter from "../routes/products.routes.js";
 import usersRouter from "../routes/users.routes.js";
 import cartsRouter from "../routes/carts.routes.js";
-import mensajeRouter from "../routes/messages.routes.js";
 import sesionRouter from "../routes/sesiones.routes.js";
 import viewRouter from "../routes/views.routes.js";
 import ticketRouter from "../routes/tickets.routes.js";
 import loggersTest from "../routes/loggersTest.routes.js";
+//DOCUMENTACION API
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 
 //Especificar puerto
@@ -74,6 +76,20 @@ function appSetUpUseConfig () {
     APP.use(passport.initialize());
     APP.use(passport.session());
     APP.use(addLogger);
+
+    const swaggerOpciones = {
+        definition: {
+            openapi: "3.1.0",
+            info: {
+                title: "Documentacion del curso de Backend",
+                description: "API CoderHouse Backend"
+            }
+        },
+        apis: [`${__dirname}/docs/**/*.yaml`]
+    }
+    
+    const specs = swaggerJSDoc(swaggerOpciones);
+    APP.use("/api/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 }
 
 function appSetUpUseRoutes () {
@@ -81,7 +97,6 @@ function appSetUpUseRoutes () {
     APP.use("/api/productos",productsRouter);
     APP.use("/api/usuarios",usersRouter);
     APP.use("/api/carritos",cartsRouter);
-    APP.use("/api/mensajes",mensajeRouter);
     APP.use("/api/sesion",sesionRouter);
     APP.use("/api/tickets",ticketRouter);
     APP.use("/api/loggersTest",loggersTest);

@@ -1,7 +1,6 @@
 import { carritoModel } from "../models/carts.models.js";
 import { productoModel } from "../models/products.models.js";
 import { ticketModel } from "../models/tickets.models.js";
-import { usuarioModel } from "../models/users.models.js";
 
 export const getCarritos = async (req,res) => {
     const {limite} = req.query;
