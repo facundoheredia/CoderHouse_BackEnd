@@ -1,3 +1,4 @@
+import "dotenv/config";
 import nodemailer from "nodemailer";
 
 const transport = nodemailer.createTransport({
@@ -6,7 +7,7 @@ const transport = nodemailer.createTransport({
     secure: true,
     auth: {
         user: "arq.facundoheredia@gmail.com",
-        pass: "cursobackend2023",
+        pass: process.env.SESSION_SECRET,
         authMethod: "LOGIN"
     }
 })
