@@ -9,7 +9,7 @@ const requester = supertest(`http://localhost:4000`);
 await mongoose.connect(process.env.MONGO_URL);
 
 describe("Test Usuarios sesion api/sesion", function() {
-    let cookie = {};
+    let token = "";
     /*
     it("Ruta api/sesion/signUp con metodo POST", async () => {
         const nuevoUsuario = {
@@ -33,24 +33,16 @@ describe("Test Usuarios sesion api/sesion", function() {
         }
 
         const result = await requester.post("/api/sesion/login").send(usuario);
-        const cookieResult = result.headers["set-cookie"][0];
+        const tokenResult = result.body.token;
+        
+        expect(tokenResult).to.be.ok;
 
-        expect(cookieResult).to.be.ok;
-
-        cookie = {
-            name: cookieResult.split("=")[0],
-            value: cookieResult.split("=")[1]
-        }
-
-        expect(cookie.name).to.be.ok.and.equal(cookie.name);
-        expect(cookie.value).to.be.ok;
+        token = tokenResult;
+        expect(token).to.be.ok;
     })
-    
+
     it("Ruta api/sesion/current con metodo GET", async () => {
-
-        const {_body} = await requester.get("/api/sesion/current").set("Cookie",[`${cookie.name} = ${cookie.value}`])
-        console.log(_body)
-        expect(_body.payload.email).to.be.equal("admin@admin.com");
+        const {_body} = await requester.get("/api/sesion/current").set("Authorization",[`${token}`]);
+        expect(_body.email).to.be.equal("admin@admin.com");
     })
-    
 })
