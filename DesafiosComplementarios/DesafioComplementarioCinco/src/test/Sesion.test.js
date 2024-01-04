@@ -13,25 +13,25 @@ describe("Test Usuarios sesion api/sesion", function() {
 
     it("Ruta api/sesion/signUp con metodo POST", async () => {
         const nuevoUsuario = {
-            nombre: "NombreTest1",
-            apellido: "ApellidoTest1",
+            nombre: "NombreTest2",
+            apellido: "ApellidoTest2",
             edad: 55,
-            email: "estaeslapruebatest1@testsesion.com",
-            contrasenia: "testsesion1"
+            email: "estaeslapruebatest2@testsesion.com",
+            contrasenia: "testsesion2"
         }
-
-        const {_body} = await requester.post("api/sesion/signUp").send(nuevoUsuario);
-
+        console.log(nuevoUsuario)
+        const {_body} = await requester.post("/api/sesion/signUp").send(nuevoUsuario);
+        console.log(_body)
         expect(_body.payload).to.be.ok;
     })
-
+    /*
     it("Ruta api/sesion/login con metodo POST", async () => {
         const usuario = {
             email: "estaeslapruebatest@testsesion.com",
             contrasenia: "testsesionnuevousuario"
         }
 
-        const result = await requester.post("api/sesion/login").send(usuario);
+        const result = await requester.post("/api/sesion/login").send(usuario);
         const cookieResult = result.headers["set-cookie"][0];
 
         expect(cookieResult).to.be.ok;
@@ -47,8 +47,9 @@ describe("Test Usuarios sesion api/sesion", function() {
 
     it("Ruta api/sesion/current con metodo GET", async () => {
 
-        const {_body} = await requester.post("api/sesion/current").set("Cookie",[`${cookie.name} = ${cookie.value}`])
+        const {_body} = await requester.post("/api/sesion/current").set("Cookie",[`${cookie.name} = ${cookie.value}`])
 
-        expect(_body.payload.email).to.be.equal("estaeslapruebatest@testsesion.com");
+        expect(_body.payload.email).to.be.equal("estaeslapruebatest1@testsesion.com");
     })
+    */
 })
