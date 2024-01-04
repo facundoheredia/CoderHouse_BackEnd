@@ -8,16 +8,16 @@ const requester = supertest(`http://localhost:4000`);
 
 await mongoose.connect(process.env.MONGO_URL);
 
-describe("Test Usuarios sesion api/sesion"), function() {
+describe("Test Usuarios sesion api/sesion", function() {
     let cookie = {};
 
     it("Ruta api/sesion/signUp con metodo POST", async () => {
         const nuevoUsuario = {
-            nombre: "NombreTest",
-            apellido: "ApellidoTest",
+            nombre: "NombreTest1",
+            apellido: "ApellidoTest1",
             edad: 55,
             email: "estaeslapruebatest1@testsesion.com",
-            contrasenia: "testsesionnuevousuario"
+            contrasenia: "testsesion1"
         }
 
         const {_body} = await requester.post("api/sesion/signUp").send(nuevoUsuario);
@@ -51,4 +51,4 @@ describe("Test Usuarios sesion api/sesion"), function() {
 
         expect(_body.payload.email).to.be.equal("estaeslapruebatest@testsesion.com");
     })
-}
+})
