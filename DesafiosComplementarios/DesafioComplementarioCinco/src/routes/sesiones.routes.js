@@ -5,8 +5,8 @@ import { logOut, login, signUp } from "../controller/session.controller.js";
 
 const sesionRouter = Router();
 
-sesionRouter.post("/login", login);
-sesionRouter.post("/signUp", signUp);
+sesionRouter.post("/login", passport.authenticate("login"), login);
+sesionRouter.post("/signUp", passport.authenticate("signUp"), signUp);
 sesionRouter.get("/logout", logOut);
 
 sesionRouter.get("/github", passport.authenticate("github", {scope: ["user:email"]}), async (req,res) => {
@@ -19,7 +19,7 @@ sesionRouter.get("/githubCallback", passport.authenticate("github"), async (req,
   res.status(200).send({mensaje: "usuario logueado"});
 })
 
-sesionRouter.get("/current", passportError("jwt"), authorization("user"), (req,res) => {
+sesionRouter.get("/current", passportError("jwt"), authorization("admin"), (req,res) => {
     res.send(req.user)
 })
 
@@ -31,5 +31,4 @@ export default sesionRouter;
 /*
 sesionRouter.post("/login", passport.authenticate("login"), login);
 sesionRouter.post("/signUp", passport.authenticate("signUp"), signUp);
-
 */
