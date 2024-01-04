@@ -166,22 +166,29 @@ export const postCompra = async (req,res) => {
         const carrito = await carritoModel.findById(cid);
         if (carrito) {        
             const productosVerificados = await verificarStock(carrito.productos);
-            const montoTotalCompra = await calcularMontoCompra(productosVerificados,emailComprador);
 
-            const nuevoTicket = await ticketModel.create({montoCompra: montoTotalCompra,productos: productosVerificados, comprador:emailComprador});
+            if(productosVerificados) {
+                carrito.productos = [];
+                await carritoModel.findByIdAndUpdate(cid,carrito);
+                
+                const montoTotalCompra = await calcularMontoCompra(productosVerificados,emailComprador);
 
-            if(nuevoTicket) {
-                res.status(200).send({respuesta: "[OK]", mensaje: `Se ha generado correctamente el ticket. Este es su codigo del ticket generado [${nuevoTicket.codigoCompra}]`});
+                const nuevoTicket = await ticketModel.create({montoCompra: montoTotalCompra,productos: productosVerificados, comprador:emailComprador});
+
+                if(nuevoTicket) {
+                    res.status(200).send({respuesta: "[OK]", mensaje: `Se ha generado correctamente el ticket. Este es su codigo del ticket generado [${nuevoTicket.codigoCompra}]`});
+                } else {
+                    res.status(404).send({respuesta: "[ERROR]", mensaje: "No se ha podido generar el ticket"});
+                }
             } else {
-                res.status(404).send({respuesta: "[ERROR] 1", mensaje: "No se ha podido generar el ticket"});
+                res.status(400).send({respuesta: "[ERROR]", mensaje: "No se pudo verificar los productos"});
             }
+
         } else {
-            res.status(404).send({respuesta: "[ERROR] 2", mensaje: "No se ha podido encontrar el carrito"});
+            res.status(404).send({respuesta: "[ERROR]", mensaje: "No se ha podido encontrar el carrito"});
         }
     } catch (error) {
-        // AL YA EXISTIR UN TICKET EN MONGO NO DEJA CREAR OTRO TICKET
-        // E11000 duplicate key error collection: test.tickets index: codigo_1 dup key: { codigo: null }
-        res.status(400).send({respuesta: "[ERROR] 3", mensaje: "El error es",error});
+        res.status(400).send({respuesta: "[ERROR]", mensaje: "El error es",error});
         console.log(error)
     }
 }
@@ -194,8 +201,11 @@ const verificarStock = async (productosEnCarrito) => {
         let productoEnDeposito = await productoModel.findById(productoEnCarrito.idProducto._id);
 
         if(productoEnDeposito) {
-            if(productoEnCarrito.cantidad <= productoEnDeposito.stock) {
+            if(productoEnDeposito.stock > 0 && productoEnCarrito.cantidad <= productoEnDeposito.stock) {
                 productosVerificados.push(productoEnCarrito);
+                productoEnDeposito.stock = productoEnDeposito.stock - productoEnCarrito.cantidad;
+
+                await productoModel.findByIdAndUpdate(productoEnDeposito._id.toString(),productoEnDeposito);
             }
         }
     }
