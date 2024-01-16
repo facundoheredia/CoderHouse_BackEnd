@@ -1,0 +1,41 @@
+<div id="bodyCarritoDetalle" class="container-fluid">
+  {{#if botonComprar}}
+  <div class="row d-flex gap-4 justify-content-center align-items-center">
+    {{#each productos}}
+      <div class="col pb-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body p-2">
+            <div class="badge text-bg-success d-flex flex-column justify-content-center align-items-center p-2">
+              <span class="material-symbols-outlined fs-3">deployed_code</span>
+              <h5 class="card-title text-center text-uppercase">{{this.titulo}}</h5>
+            </div>
+          </div>
+          <ul class="ps-2 list-group">
+            <li class="list-group-item bg-transparent">Codigo: {{this.codigo}}</li>
+            <li class="list-group-item bg-transparent">Precio: $ {{this.precio}}</li>
+            <li class="list-group-item bg-transparent">Cantidad: {{this.cantidad}}</li>
+          </ul>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <div class="row">
+    <p class="text-b">Total compra: $ {{totalCompra}}</p>
+  </div>
+  <div class="col-2 pt-4">
+    <a class="text-decoration-none text-light" href="http://localhost:4000/views/carritos/{{usuario.cart}}/compra">
+      <button type="submit" class="btn btn-primary p-2 fw-bold d-flex flex-row" id="botonComprar">
+        <span class="material-symbols-outlined">shopping_cart</span><p>COMPRAR</p>
+      </button>
+    </a>
+  </div>
+  {{else}}
+    <p>El carrito esta vacio</p>
+  {{/if}}
+</div>
+
+
+
+
+
+

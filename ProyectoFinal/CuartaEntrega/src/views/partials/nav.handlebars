@@ -1,0 +1,79 @@
+<header id="navbar" class="content-fluid bg-dark row">
+  <div class="col-8">
+    <ul class="nav nav-underline justify-content-start fw-bold pt-2 ps-4">
+      <li class="nav-item">
+        <a class="nav-link text-light d-flex flex-row" href="http://localhost:4000/views/home">
+          <span class="material-symbols-outlined pe-2">home</span>
+          <p>HOME</p>
+        </a>
+      </li>
+      {{#if usuario }}
+      <li class="nav-item">
+        <a class="nav-link text-light d-flex flex-row" href="http://localhost:4000/views/productos">
+          <span class="material-symbols-outlined pe-2">package_2</span>
+          <p>PRODUCTOS</p>
+        </a>
+      </li>
+      {{#if admin}}
+            <li class="nav-item">
+        <a class="nav-link text-light d-flex flex-row" href="http://localhost:4000/views/usuarios">
+          <span class="material-symbols-outlined pe-2">groups</span>
+          <p>USUARIOS</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light d-flex flex-row" href="http://localhost:4000/views/carritos">
+          <span class="material-symbols-outlined pe-2">shopping_cart</span>
+          <p>CARRITOS</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light d-flex flex-row" href="http://localhost:4000/api/docs">
+          <span class="material-symbols-outlined pe-2">import_contacts</span>
+          <p>DOCUMENTACION API</p>
+        </a>
+      </li>
+      {{/if}}
+      {{/if}}
+    </ul>
+  </div>
+  <div class="col-4">
+    {{#if usuario }}
+    <div class="d-flex flex-row gap-4 justify-content-between align-items-center pt-2">
+      <div class="text-light d-flex flex-row gap-4">
+          <span class="material-symbols-outlined">person</span>
+          <p class="ps-2 pe-2">{{usuario.nombre}} {{usuario.apellido}}</p>
+          <span class="material-symbols-outlined">badge</span>
+          <p class="fs-6 ps-2">{{usuario.rol}}</p>
+          <a class="text-decoration-none text-light" href="http://localhost:4000/views/carritos/{{usuario.cart}}">
+            <span class="material-symbols-outlined">shopping_cart</span>
+          </a>
+      </div>
+      <div class="pe-4">
+        <a class="text-decoration-none" href="/views/logout">
+          <button type="submit" class="btn btn-danger ps-2 pe-2 fw-bold d-flex flex-row">
+            <span class="material-symbols-outlined">logout</span><p class="ps-2">SALIR</p>
+          </button>
+        </a>
+      </div>
+    </div>
+    {{else}}
+    <div class="d-flex flex-row gap-4 justify-content-end align-items-center pt-2">
+      <div>
+        <a class="text-decoration-none" href="/views/login">
+          <button class="btn btn-success ps-2 pe-2 fw-bold d-flex flex-row">
+            <span class="material-symbols-outlined">login</span><p class="ps-2">ENTRAR</p>
+          </button>
+        </a>
+      </div>
+      <div class="pe-4">
+        <a class="text-decoration-none" href="/views/signUp">
+          <button class="btn btn-primary ps-2 pe-2 fw-bold d-flex flex-row">
+            <span class="material-symbols-outlined">account_box</span><p class="ps-2">REGISTRARSE</p>
+          </button>
+        </a>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</header>

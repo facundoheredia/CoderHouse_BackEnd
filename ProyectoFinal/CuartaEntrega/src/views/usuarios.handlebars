@@ -1,0 +1,80 @@
+<div id="bodyUsuarios" class="container-fluid">
+  {{#if admin}}
+  <nav class="row col-12 pt-4">
+    <div class="nav nav-tabs nav-underline d-flex justify-content-center align-items-center animate__animated animate__fadeIn animate__slow" id="nav-tab" role="tablist">
+      <button class="nav-link active ps-4 pe-4" id="nav-modificarUsuario-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarUsuario" type="button" role="tab" aria-controls="nav-modificarUsuario" aria-selected="true">MODIFICAR USUARIO</button>
+      <button class="nav-link ps-4 pe-4" id="nav-borrarUsuario-tab" data-bs-toggle="tab" data-bs-target="#nav-borrarUsuario" type="button" role="tab" aria-controls="nav-borrarUsuario" aria-selected="false">BORRAR USUARIO</button>
+    </div>
+  </nav>
+  
+  <div class="row col-12 tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active formulariosUsuarios shadow animate__animated animate__fadeIn animate__slow" id="nav-modificarUsuario" role="tabpanel" aria-labelledby="nav-modificarUsuario-tab" tabindex="0">
+      <div class="p-4">
+        <form id="modifyUserForm">
+          <div class="row">
+            <div class="col-4 pe-4">
+              <label for="idUsuario" class="form-label pb-2">ID DEL USUARIO</label>
+              <input type="text" class="form-control" name="idUsuario" id="idUsuario" placeholder="1" required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 pe-4">
+              <label for="nombre" class="form-label pb-2">NOMBRE</label>
+              <input type="text" class="form-control" name="nombre" id="nombre" required/>
+            </div>
+            <div class="col-2 pe-4">
+              <label for="apellido" class="form-label pb-2">APELLIDO</label>
+              <input type="text" class="form-control" name="apellido" id="apellido" required/>
+            </div>
+            <div class="col-2 pe-4">
+              <label for="edad" class="form-label pb-2">EDAD</label>
+              <input type="edad" class="form-control" name="edad" placeholder="20" id="edad" required/>
+            </div>
+            <div class="col-6 pe-4">
+              <label for="email" class="form-label pb-2">EMAIL</label>
+              <input type="email" class="form-control" name="email" placeholder="email@email.com" id="email" required/>
+            </div>
+            <div class="col-2">
+              <label for="rol" class="form-label pb-2">ROL</label>
+              <select name="rol" class="form-select" id="rol" required>
+                <option selected>user</option>
+                <option>premium</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 pt-4">
+              <button type="submit" class="btn btn-success p-2 fw-bold d-flex flex-row" id="botonModificarUsuario">
+                <span class="material-symbols-outlined">done</span><p>MODIFICAR USUARIO</p>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>    
+    <div class="tab-pane fade formulariosUsuarios shadow animate__animated animate__fadeIn animate__slow" id="nav-borrarUsuario" role="tabpanel" aria-labelledby="nav-borrarUsuario-tab" tabindex="0">
+      <div class="p-4">
+        <form id="eliminateUserForm">
+          <div class="row">
+            <div class="col-8 pe-4">
+              <label for="idUser" class="form-label pb-2">ID DEL USUARIO (solo se puede eliminar al admin desde la base de datos y al usuario con mas de 2 dias de inactividad)</label>
+              <input type="text" class="form-control" name="idUser" id="idUser" placeholder="1" required />
+            </div>
+            <div class="col-4 pt-4">
+              <button type="submit" class="btn btn-danger p-2 fw-bold d-flex flex-row" id="botonEliminarUsuario">
+                <span class="material-symbols-outlined">delete</span><p>ELIMINAR USUARIO</p></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  <div class="row col-12 pt-4">
+    <div class="col-12 tituloSeccion text-center">
+      <h3 class="m-0">LISTADO DE USUARIOS</h3>
+    </div>
+    <div class="row col-12 p-4 row row-cols-1 row-cols-md-6 g-4 animate__animated animate__fadeIn" id="tablaUsuarios">
+    </div>
+  </div>
+</div>
