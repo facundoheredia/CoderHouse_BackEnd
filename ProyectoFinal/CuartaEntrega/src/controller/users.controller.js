@@ -6,9 +6,12 @@ const recoveryLinks = {};
 
 export const getUsers = async (req,res) => {
     try {
-        const usuarios = await usuarioModel.find();
+        const usuariosServidor = await usuarioModel.find();
+        const usuarios = [];
+        
+        usuariosServidor.forEach(usuario =>usuarios.push({nombre: usuario.nombre, email: usuario.email, rol: usuario.rol}));
 
-        if(usuarios) {
+        if(usuarios.length != 0) {
             res.status(200).send({respuesta: "[OK]", mensaje: usuarios});
         } else {
             res.status(404).send({respuesta: "[ERROR]", mensaje: "No se han podido encontrar a los usuarios"});

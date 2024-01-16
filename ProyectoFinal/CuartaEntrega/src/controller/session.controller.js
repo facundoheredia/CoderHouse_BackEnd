@@ -8,8 +8,7 @@ export const login = async (req,res) => {
         } else {
             const token = generateToken(req.user);
             const usuario = await usuarioModel.findOne({email:req.user.email})
-            usuario.ultimaConexion = Date.now()
-            console.log(usuario);
+            usuario.ultimaConexion = Date.now();
             await usuarioModel.findByIdAndUpdate(usuario._id,{usuario})
             res.status(200).send({token});
         }
