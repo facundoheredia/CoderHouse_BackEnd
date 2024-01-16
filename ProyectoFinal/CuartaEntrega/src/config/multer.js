@@ -1,4 +1,4 @@
-import multer from "multer";
+/*import multer from "multer";
 import { __dirname } from "../Path.js";
 import path from "path";
 //Subir documento
@@ -13,4 +13,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage});
 
-export default upload;
+export default upload;*/
